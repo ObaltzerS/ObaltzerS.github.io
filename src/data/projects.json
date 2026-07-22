@@ -1,6 +1,6 @@
 [
   {
-    "title": "Personal Portfolio",
+    "title": "",
     "description": "This site — a clean home for past and future projects, built with Astro and Vue.",
     "status": "in-progress",
     "tags": ["Astro", "Vue", "TypeScript"],
@@ -8,24 +8,5 @@
       "repo": "https://github.com/ObaltzerS/ObaltzerS.github.io"
     },
     "date": "2026-07"
-  },
-  {
-    "title": "Example completed project",
-    "description": "Replace this with a finished project. Link the repo and live demo when ready.",
-    "status": "completed",
-    "tags": ["Example"],
-    "links": {
-      "repo": "https://github.com/ObaltzerS",
-      "demo": "https://ObaltzerS.github.io"
-    },
-    "date": "2025-12"
-  },
-  {
-    "title": "Example planned project",
-    "description": "Replace this with something you want to build next. Useful for tracking ideas publicly.",
-    "status": "planned",
-    "tags": ["Idea"],
-    "links": {},
-    "date": "2026-09"
   }
 ]
