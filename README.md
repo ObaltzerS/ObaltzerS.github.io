@@ -1,46 +1,59 @@
-# Astro Starter Kit: Basics
+# ObaltzerS.github.io
+
+Personal portfolio for past, current, and planned projects.
+
+**Stack:** Astro + Vue · builds to static files for GitHub Pages
+
+## Develop
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Command | Action |
+| --- | --- |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Production build → `./dist/` |
+| `npm run preview` | Preview the build locally |
 
-## 🚀 Project Structure
+## Add a project
 
-Inside of your Astro project, you'll see the following folders and files:
+Edit [`src/data/projects.json`](src/data/projects.json):
+
+```json
+{
+  "title": "My project",
+  "description": "Short summary.",
+  "status": "completed",
+  "tags": ["Astro", "Vue"],
+  "links": {
+    "repo": "https://github.com/…",
+    "demo": "https://…"
+  },
+  "date": "2026-07"
+}
+```
+
+`status` must be one of: `completed` · `in-progress` · `planned`
+
+## Project layout
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+  components/
+    Hero.astro          # static intro
+    About.astro         # static bio
+    ProjectGrid.vue     # filterable project cards (Vue island)
+  data/projects.json    # source of truth for projects
+  layouts/Layout.astro
+  pages/index.astro
+  styles/global.css
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Interactive filters live in Vue (`client:load`). Layout and copy stay in Astro.
 
-## 🧞 Commands
+## Deploy
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Pushes to `main` build and publish via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).  
+Repo Settings → Pages → Source: **GitHub Actions**.

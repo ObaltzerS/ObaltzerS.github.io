@@ -1,0 +1,38 @@
+---
+interface Props {
+  bio?: string;
+}
+
+const {
+  bio = "I'm a developer interested in clean software and thoughtful product work. This site is a living index of what I've built and what I plan to tackle next. Replace this paragraph with your own short bio.",
+} = Astro.props;
+---
+
+<section id="about" class="section about">
+  <div class="container">
+    <h2 class="section-title">About</h2>
+    <div class="card">
+      <p class="muted">{bio}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding-top: 2rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.5rem 1.75rem;
+    max-width: 42rem;
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+</style>
