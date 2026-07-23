@@ -11,6 +11,7 @@ export interface Project {
   links?: {
     repo?: string;
     demo?: string;
+    paper?: string;
   };
   date?: string;
 }
@@ -103,6 +104,12 @@ function formatDate(date?: string) {
               target="_blank"
               rel="noreferrer"
             >Demo</a>
+            <a
+              v-if="project.links?.paper"
+              :href="project.links.paper"
+              target="_blank"
+              rel="noreferrer"
+            >Paper</a>
           </div>
         </li>
       </ul>

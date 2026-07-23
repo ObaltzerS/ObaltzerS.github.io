@@ -21,12 +21,23 @@
     "date": "2026-07"
   },
     {
-    "title": "",
-    "description": "This site — a clean home for past and future projects, built with Astro and Vue.",
-    "status": "in-progress",
-    "tags": ["Astro", "Vue", "TypeScript"],
+    "title": "OT2 Control Panel",
+    "description": "A Graphical user interface for The Hendricks Labratory at Whitman College. Built to provide a simple and accessible interface for the OT2 Liquids Handler Robot.",
+    "status": "Complete",
+    "tags": ["TKinter", "Python", "Tmux"],
     "links": {
-      "repo": "https://github.com/ObaltzerS/ObaltzerS.github.io"
+      "repo": "https://github.com/Hendricks-Laboratory/OT2Control"
+    },
+    "date": "2026-07"
+  },
+  {
+    "title": "Monkey Flower Annotation Model",
+    "description": "A Custom trained convolutional neural network, made to annotate images of monkeyflower petals. ",
+    "status": "Complete",
+    "tags": ["PyTorch", "Jupyter Notebook", "OpenCV"],
+    "links": {
+      "repo": "",
+      "paper":"https://arminda.whitman.edu/theses/2025081"
     },
     "date": "2026-07"
   }
