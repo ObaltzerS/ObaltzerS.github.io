@@ -8,5 +8,26 @@
       "repo": "https://github.com/ObaltzerS/ObaltzerS.github.io"
     },
     "date": "2026-07"
+  },
+    {
+    "title": "The PFAS Governance Tracker",
+    "description": "A Publicly available database of per- and poly- fluoroalkyl substance related governance actions.",
+    "status": "Complete",
+    "tags": ["Node.js", "Javascript", "Google Cloud API"],
+    "links": {
+      "repo": "https://github.com/PFAS-Project/pfas-gov-tracker",
+      "demo":"http://governance.pfasproject.com/"
+    },
+    "date": "2026-07"
+  },
+    {
+    "title": "",
+    "description": "This site — a clean home for past and future projects, built with Astro and Vue.",
+    "status": "in-progress",
+    "tags": ["Astro", "Vue", "TypeScript"],
+    "links": {
+      "repo": "https://github.com/ObaltzerS/ObaltzerS.github.io"
+    },
+    "date": "2026-07"
   }
 ]
