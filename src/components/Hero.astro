@@ -1,4 +1,13 @@
 ---
+// =============================================================================
+// COMPONENT: Hero (Astro)
+// -----------------------------------------------------------------------------
+// Top-of-page intro. Pure Astro = static HTML after build (no Vue/React bundle).
+// Customize by editing the defaults below, or pass props from the page:
+//   <Hero name="..." tagline="..." github="..." email="you@example.com" />
+// =============================================================================
+
+// TypeScript shape of optional props this component accepts.
 interface Props {
   name?: string;
   tagline?: string;
@@ -6,24 +15,39 @@ interface Props {
   email?: string;
 }
 
+// Destructure props with defaults so the component works with zero attributes.
 const {
-  name = 'Oliver Baltzer',
-  tagline = 'TAGLINE PLACEHOLDER',
-  github = 'https://github.com/ObaltzerS',
-  email,
+  name = "Oliver Baltzer",
+  tagline = "",
+  github = "https://github.com/ObaltzerS",
+  email, // undefined unless passed — used below to optionally show Email button
 } = Astro.props;
 ---
 
 <section class="hero section">
   <div class="container">
     <p class="eyebrow muted">Portfolio</p>
+    {/* {name} interpolates the frontmatter variable into the HTML */}
     <h1>{name}</h1>
     <p class="tagline muted">{tagline}</p>
     <div class="links">
-      <a class="btn primary" href={github} target="_blank" rel="noreferrer">GitHub</a>
-      {email && (
-        <a class="btn" href={`mailto:${email}`}>Email</a>
-      )}
+      <a class="btn primary" href={github} target="_blank" rel="noreferrer"
+        >GitHub</a
+      >
+      {
+        /*
+        Conditional render: JSX-style expression.
+        If `email` is falsy, nothing is output for this branch.
+      */
+      }
+      {
+        email && (
+          <a class="btn" href={`mailto:${email}`}>
+            Email
+          </a>
+        )
+      }
+      {/* In-page anchor — matches id="projects" on ProjectGrid */}
       <a class="btn" href="#projects">View projects</a>
     </div>
   </div>
@@ -45,6 +69,7 @@ const {
 
   h1 {
     margin: 0;
+    /* clamp(min, preferred, max) → responsive type without media queries */
     font-size: clamp(2.4rem, 5vw, 3.4rem);
     line-height: 1.1;
     letter-spacing: -0.04em;
@@ -77,7 +102,9 @@ const {
     text-decoration: none;
     font-weight: 500;
     font-size: 0.95rem;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    transition:
+      border-color 0.15s ease,
+      background 0.15s ease;
   }
 
   .btn:hover {

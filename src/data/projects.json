@@ -12,7 +12,7 @@
     {
     "title": "The PFAS Governance Tracker",
     "description": "A Publicly available database of per- and poly- fluoroalkyl substance related governance actions.",
-    "status": "Complete",
+    "status": "completed",
     "tags": ["Node.js", "Javascript", "Google Cloud API"],
     "links": {
       "repo": "https://github.com/PFAS-Project/pfas-gov-tracker",
@@ -23,7 +23,7 @@
     {
     "title": "OT2 Control Panel",
     "description": "A Graphical user interface for The Hendricks Labratory at Whitman College. Built to provide a simple and accessible interface for the OT2 Liquids Handler Robot.",
-    "status": "Complete",
+    "status": "completed",
     "tags": ["TKinter", "Python", "Tmux"],
     "links": {
       "repo": "https://github.com/Hendricks-Laboratory/OT2Control"
@@ -33,7 +33,7 @@
   {
     "title": "Monkey Flower Annotation Model",
     "description": "A Custom trained convolutional neural network, made to annotate images of monkeyflower petals. ",
-    "status": "Complete",
+    "status": "completed",
     "tags": ["PyTorch", "Jupyter Notebook", "OpenCV"],
     "links": {
       "repo": "",

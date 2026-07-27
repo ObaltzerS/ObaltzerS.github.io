@@ -1,8 +1,22 @@
 <script setup lang="ts">
+// =============================================================================
+// COMPONENT: ProjectGrid (Vue 3)
+// -----------------------------------------------------------------------------
+// This is an interactive "island": filters need client-side state, so Vue runs
+// in the browser after Astro hydrates it (see client:load on index.astro).
+//
+// `<script setup>` is Vue's Composition API single-file syntax:
+// - top-level bindings are automatically available in the <template>
+// - no export default { ... } boilerplate needed
+// =============================================================================
+
+// ref = mutable reactive value; computed = derived value that re-runs when deps change
 import { computed, ref } from 'vue';
 
+/** Allowed status values — must match strings in src/data/projects.json */
 export type ProjectStatus = 'completed' | 'in-progress' | 'planned';
 
+/** Shape of one project object (mirrors the JSON fields). */
 export interface Project {
   title: string;
   description: string;
@@ -13,13 +27,16 @@ export interface Project {
     demo?: string;
     paper?: string;
   };
-  date?: string;
+  date?: string; // optional "YYYY-MM"
 }
 
+// defineProps = declare inputs from the parent (Astro passes projects={...}).
+// Props are read-only inside the component.
 const props = defineProps<{
   projects: Project[];
 }>();
 
+// Filter tab config. `as const` keeps id/label types narrow (not just string).
 const filters = [
   { id: 'all', label: 'All' },
   { id: 'completed', label: 'Completed' },
@@ -27,21 +44,26 @@ const filters = [
   { id: 'planned', label: 'Planned' },
 ] as const;
 
+// Union of filter ids: 'all' | 'completed' | ...
 type FilterId = (typeof filters)[number]['id'];
 
+// Reactive state for which tab is selected. Changing `.value` re-renders the template.
 const active = ref<FilterId>('all');
 
+// Map machine status → human-readable pill text
 const statusLabel: Record<ProjectStatus, string> = {
   completed: 'Completed',
   'in-progress': 'In progress',
   planned: 'Planned',
 };
 
+// Recomputes whenever `active` or `props.projects` change.
 const filtered = computed(() => {
   if (active.value === 'all') return props.projects;
   return props.projects.filter((p) => p.status === active.value);
 });
 
+/** Turn "2026-07" into "Jul 2026" for display. */
 function formatDate(date?: string) {
   if (!date) return '';
   const [y, m] = date.split('-');
@@ -54,10 +76,19 @@ function formatDate(date?: string) {
 </script>
 
 <template>
+  <!--
+    Vue template syntax (differs from Astro):
+    - v-for / v-if / v-else = control flow
+    - :attr="expr" or v-bind = dynamic HTML attribute
+    - @click="handler" or v-on = event listener
+    - {{ expr }} = text interpolation
+  -->
   <section id="projects" class="section projects">
     <div class="container">
       <div class="head">
         <h2 class="section-title">Projects</h2>
+
+        <!-- Filter tabs: loop filters[], highlight the active one -->
         <div class="filters" role="tablist" aria-label="Filter projects by status">
           <button
             v-for="filter in filters"
@@ -74,23 +105,30 @@ function formatDate(date?: string) {
         </div>
       </div>
 
+      <!-- Empty state when the current filter matches nothing -->
       <p v-if="filtered.length === 0" class="empty muted">
         No projects in this category yet.
       </p>
 
+      <!-- Card grid: one <li> per project in the filtered list -->
       <ul v-else class="grid">
         <li v-for="project in filtered" :key="project.title" class="card">
           <div class="card-top">
+            <!-- :data-status drives colored CSS (see .status[data-status='...']) -->
             <span class="status" :data-status="project.status">
               {{ statusLabel[project.status] }}
             </span>
             <time v-if="project.date" class="date muted">{{ formatDate(project.date) }}</time>
           </div>
+
           <h3>{{ project.title }}</h3>
           <p class="desc muted">{{ project.description }}</p>
+
+          <!-- Optional chaining: only render tags/links when present -->
           <ul v-if="project.tags?.length" class="tags">
             <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
           </ul>
+
           <div class="links">
             <a
               v-if="project.links?.repo"
@@ -117,6 +155,11 @@ function formatDate(date?: string) {
   </section>
 </template>
 
+<!--
+  scoped = these rules only apply to this component's elements
+  (Vue adds a unique data attribute so styles don't leak).
+  Fallbacks like var(--border, #e7e5e4) help if global.css vars aren't visible.
+-->
 <style scoped>
 .projects {
   padding-bottom: 5rem;

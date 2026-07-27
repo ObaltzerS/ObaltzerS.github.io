@@ -1,13 +1,43 @@
 ---
+// =============================================================================
+// PAGE: Home (`src/pages/index.astro`)
+// -----------------------------------------------------------------------------
+// In Astro, every file under `src/pages/` becomes a route. This file is `/`
+// because it is named `index.astro`.
+//
+// The frontmatter (between the --- fences) runs at BUILD TIME on the server.
+// Imports, data loading, and props preparation happen here — not in the browser.
+// =============================================================================
+
+// Static shell + shared chrome (header/footer). Pure Astro → zero client JS.
 import Layout from '../layouts/Layout.astro';
+
+// Static sections. Rendered to plain HTML; no framework runtime needed.
 import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
+
+// Interactive section written in Vue. Without a `client:*` directive below,
+// Astro would only server-render it (no click handlers / filters).
 import ProjectGrid from '../components/ProjectGrid.vue';
+
+// JSON is imported like a module. Edit this file to add/update projects.
 import projects from '../data/projects.json';
 ---
 
+{/*
+  Everything inside <Layout> is injected into Layout's <slot />.
+  Props like `title` go to the layout's Astro.props.
+*/}
 <Layout title="Oliver Baltzer — Projects" description="Past, current, and planned projects.">
   <Hero />
   <About />
+
+  {/*
+    `client:load` = hydrate this Vue island as soon as the page loads.
+    That ships the Vue runtime + ProjectGrid JS to the browser.
+    Other options: client:idle, client:visible, client:only="vue".
+
+    `projects={projects}` passes build-time data into the Vue component as props.
+  */}
   <ProjectGrid client:load projects={projects} />
 </Layout>

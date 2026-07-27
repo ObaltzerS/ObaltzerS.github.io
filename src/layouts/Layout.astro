@@ -1,14 +1,29 @@
 ---
-import '../styles/global.css';
+// =============================================================================
+// LAYOUT: Base page shell
+// -----------------------------------------------------------------------------
+// Layouts wrap pages with shared HTML structure (doctype, <head>, header, footer).
+// Pages put their content inside <Layout>...</Layout>; that content lands in <slot />.
+//
+// Styles in the bottom <style> block are SCOPED to this component by default
+// (Astro adds unique attributes so class names don't leak site-wide).
+// Global tokens (colors, fonts) live in global.css instead.
+// =============================================================================
 
+// Side-effect import: injects site-wide CSS variables and base element styles.
+import "../styles/global.css";
+
+// Props this layout accepts from pages (e.g. <Layout title="...">).
+// `?` means optional — we supply defaults below.
 interface Props {
   title?: string;
   description?: string;
 }
 
+// Astro.props = values passed from the parent page component.
 const {
-  title = 'Oliver Baltzer',
-  description = 'Portfolio of past and future projects.',
+  title = "Oliver Baltzer",
+  description = "Portfolio of past and future projects.",
 } = Astro.props;
 ---
 
@@ -17,9 +32,13 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" /> -->
+    {
+      /* Astro.generator inserts something like "Astro v7.x" for debugging/meta */
+    }
     <meta name="generator" content={Astro.generator} />
+    {/* Curly braces {} embed frontmatter JS values into the HTML */}
     <meta name="description" content={description} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,23 +52,36 @@ const {
     <header class="site-header">
       <div class="container header-inner">
         <a class="logo" href="/">OB</a>
+        {
+          /* Hash links jump to section ids on the same page (#about, #projects) */
+        }
         <nav aria-label="Primary">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
         </nav>
       </div>
     </header>
+
     <main>
+      {
+        /*
+        <slot /> is the key layout feature: child content from the page
+        (Hero, About, ProjectGrid) is rendered here.
+      */
+      }
       <slot />
     </main>
+
     <footer class="site-footer">
       <div class="container muted">
+        {/* Runs once at build time → year is baked into the static HTML */}
         <p>© {new Date().getFullYear()} Oliver Baltzer</p>
       </div>
     </footer>
   </body>
 </html>
 
+{/* Component-scoped CSS — only applies to elements in this file's template */}
 <style>
   .site-header {
     position: sticky;

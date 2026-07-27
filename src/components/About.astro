@@ -1,15 +1,23 @@
 ---
+// =============================================================================
+// COMPONENT: About (Astro)
+// -----------------------------------------------------------------------------
+// Simple static bio block. id="about" lets the header nav link (#about) scroll here.
+// Override the text from the page: <About bio="Your bio here." />
+// =============================================================================
+
 interface Props {
   bio?: string;
 }
 
 const {
-  bio = "BIO PLACEHOLDER",
+  bio = "I am a recent grad passionate about using software to solve real-world problems. I have a history of well-designed and implemented tools, which are catalogued here on my page!",
 } = Astro.props;
 ---
 
 <section id="about" class="section about">
   <div class="container">
+    {/* .section-title is defined in global.css for consistent headings */}
     <h2 class="section-title">About</h2>
     <div class="card">
       <p class="muted">{bio}</p>
